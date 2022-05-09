@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.ko-linq"
-version = "1.0-SNAPSHOT"
+version = "0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -26,10 +26,10 @@ tasks.withType<KotlinCompile> {
 
 publishing {
     publications {
-        withType<MavenPublication> {
+        create("maven_public", MavenPublication::class) {
             groupId = "io.github.ko-linq"
             artifactId = "kotlinq-core"
-            version = "0.1"
+            version = "0.1-SNAPSHOT"
 
             from(components.getByName("java"))
         }
