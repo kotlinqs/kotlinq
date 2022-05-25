@@ -12,12 +12,12 @@ repositories {
     mavenLocal()
 }
 
-group = "io.github.kotlinq"
+group = "io.github.kotlinqs"
 version = "0.1-SNAPSHOT"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
-    implementation("io.github.kotlinq:vidbirnyk:0.1-SNAPSHOT")
+    implementation("io.github.kotlinqs:vidbirnyk:0.1-SNAPSHOT")
     compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.6.21")
     implementation("com.github.kotlinx.ast:common:v0.1.0")
     implementation("com.github.kotlinx.ast:grammar-kotlin-parser-antlr-kotlin:v0.1.0")
@@ -40,7 +40,7 @@ tasks.withType<KotlinCompile> {
 publishing {
     publications {
         create("maven_public", MavenPublication::class) {
-            groupId = "io.github.kotlinq"
+            groupId = "io.github.kotlinqs"
             artifactId = "kotlinq"
             version = "0.1-SNAPSHOT"
 

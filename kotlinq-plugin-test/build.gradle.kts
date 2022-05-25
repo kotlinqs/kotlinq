@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("io.github.kotlinq:kotlinq:0.1-SNAPSHOT")
+        classpath("io.github.kotlinqs:kotlinq:0.1-SNAPSHOT")
     }
 }
 
@@ -28,7 +28,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    testImplementation("io.github.kotlinq:kotlinq:0.1-SNAPSHOT")
+    testImplementation("io.github.kotlinqs:kotlinq:0.1-SNAPSHOT")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.0")
