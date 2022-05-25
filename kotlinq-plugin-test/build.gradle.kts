@@ -3,6 +3,7 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven("https://jitpack.io")
     }
     dependencies {
         classpath("io.github.kotlinqs:kotlinq:0.1-SNAPSHOT")
@@ -24,6 +25,7 @@ kotlinq {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven("https://jitpack.io")
 }
 
 dependencies {
