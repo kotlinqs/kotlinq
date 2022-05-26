@@ -30,7 +30,7 @@ class GradlePlugin: KotlinCompilerPluginSupportPlugin {
     override fun apply(target: Project) {
         super.apply(target)
         target.extensions.add("kotlinq", KotlinqExtension())
-        target.dependencies.add("implementation", "io.github.kotlinqs:kotlinq:0.1-SNAPSHOT")
+        target.dependencies.add("implementation", "com.github.kotlinqs.kotlinq:kotlinq:0.1-SNAPSHOT")
         target.repositories.maven { it.setUrl("https://jitpack.io") }
     }
 
@@ -54,7 +54,7 @@ class GradlePlugin: KotlinCompilerPluginSupportPlugin {
     }
 
     override fun getPluginArtifact(): SubpluginArtifact {
-        return SubpluginArtifact("io.github.kotlinqs", "kotlinq", "0.1-SNAPSHOT")
+        return SubpluginArtifact("com.github.kotlinqs.kotlinq", "kotlinq", "0.1-SNAPSHOT")
     }
 
     override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean {
