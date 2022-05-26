@@ -5,3 +5,9 @@ allprojects {
         mavenLocal()
     }
 }
+
+tasks.create("publishToMavenLocal") {
+    dependsOn(
+        gradle.includedBuild("kotlinq").task(":publishToMavenLocal")
+    )
+}
