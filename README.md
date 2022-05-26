@@ -44,21 +44,18 @@ Take a look at JOOQ example: TBD link
 
 ### How to use
 
-1. Add jitpack as repository for plugins, in `settings.gradle`:
+1. Add kotlinq plugin to your `build.gradle`
    ```groovy
-   pluginManagement {
-       repositories {
-           gradlePluginPortal()
-           maven("https://jitpack.io")
-       }
-    }
-   ```  
-2. Add kotlinq plugin to your `build.gradle`
-   ```groovy
-   plugins {
-        // other plugins, like kotlin
-        id("io.github.kotlinq") version "0.1-SNAPSHOT"
+   buildscript {
+      repositories {
+         maven("https://jitpack.io")
+      }
+      dependencies {
+         classpath("com.github.kotlinqs.kotlinq:com.github.kotlinqs.gradle.plugin:0.1-SNAPSHOT")
+      }
    }
+   
+   apply(plugin="com.github.kotlinqs")
    ```
 3. Add configuration into your `build.gradle` (optional)
    ```groovy

@@ -39,7 +39,7 @@ class KotlinqCommandLineProcessor: CommandLineProcessor {
         const val UPPERCASE_OPT = "uppercaseIsClass"
         val UPPERCASE_KEY = CompilerConfigurationKey<Boolean>(UPPERCASE_OPT)
 
-        const val PLUGIN_ID = "io.github.kotlinq"
+        const val PLUGIN_ID = "com.github.kotlinqs"
 
         val PACKAGES_CLI_OPTION = CliOption(
             optionName = PACKAGES_OPT,
