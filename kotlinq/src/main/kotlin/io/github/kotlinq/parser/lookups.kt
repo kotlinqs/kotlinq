@@ -48,29 +48,44 @@ fun isOn(ast: Ast?): Boolean {
             && ast["annotation valueArgument"]?.let { constLiteral(it) }?.value != true
 }
 
+fun Ast.recursive(selector: String, onlyLeaves: Boolean = true): List<Ast> {
+    return this.all("& $selector").flatMap {
+        val leaves = it.recursive(selector, onlyLeaves)
+        when {
+            onlyLeaves && leaves.isEmpty() -> listOf(it)
+            onlyLeaves -> leaves
+            else -> listOf(it) + leaves
+        }
+    }
+}
+
 fun searchLambdas(ast: Ast, onlyIfAnnotationPresent: Boolean): List<ParsedLambda>  {
     val result = mutableListOf<ParsedLambda>()
 
     val lambdasOn = if (onlyIfAnnotationPresent)
         ast.all("classDeclaration")
             .filter { isOn(it["& > modifiers annotation"]) }
-            .mapNotNull { it["lambdaLiteral"] } +
+            .flatMap { it.recursive("lambdaLiteral") } +
                 ast.all("topLevelObject > declaration > functionDeclaration")
                     .filter { isOn(it["& > modifiers annotation"]) }
-                    .mapNotNull { it["lambdaLiteral"] }
+                    .flatMap { it.recursive("lambdaLiteral") }
     else
-        ast.all("lambdaLiteral")
+        ast.recursive("lambdaLiteral")
     if (lambdasOn.isEmpty()) return result
 
-    val lambdasOff = ast.all("annotatedLambda")
+    val lambdasAnnotatedWithKotlinqOff = ast.all("annotatedLambda")
         .filter { isOff(it) }
-        .mapNotNull { it["lambdaLiteral"] }
-        .toSet() + ast.all("classDeclaration")
-            .filter { isOff(it["& > modifiers annotation"]) }
-            .mapNotNull { it["lambdaLiteral"] } + ast.all("topLevelObject > declaration > functionDeclaration")
-                .filter { isOff(it["& > modifiers annotation"]) }
-                .mapNotNull { it["lambdaLiteral"] }
-    //error(ast.printString())
+        .mapNotNull { it["& > lambdaLiteral"] }
+        .toSet()
+    val lambdasInClassesAnnotatedWithKotlinqOff = ast.all("classDeclaration")
+        .filter { isOff(it["& > modifiers annotation"]) }
+        .flatMap { it.recursive("lambdaLiteral") }
+    val lambdasInTopLevelFnsAnnotatedWithKotlinqOff = ast.all("topLevelObject > declaration > functionDeclaration")
+        .filter { isOff(it["& > modifiers annotation"]) }
+        .flatMap { it.recursive("lambdaLiteral") }
+    val lambdasOff = lambdasAnnotatedWithKotlinqOff +
+            lambdasInClassesAnnotatedWithKotlinqOff +
+            lambdasInTopLevelFnsAnnotatedWithKotlinqOff
     for (lambdaLiteral in lambdasOn - lambdasOff) {
         result += ParsedLambda(lambdaLiteral, lambdaLiteral.astInfoOrNull!!.start, lambdaLiteral.astInfoOrNull!!.stop)
     }

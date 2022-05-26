@@ -16,12 +16,12 @@ internal class LookupsKtTest {
             class Antoshka {
 
                 @Kopat
-                fun potato(): Boolean {
+                fun potato(): () -> Boolean {
                     val zadavali = false
-                    return getProhodili()
-                        .filter { it && zadavali }
-                        .sortedBy @Kotlinq(true) { it.id }
-                        .any({ listOf(it) } with Expression)
+                    return { getProhodili()
+                        .filter { z -> z && zadavali }
+                        .sortedBy @Kotlinq(true) { s -> s.id }
+                        .any({ listOf(it) } with Expression) }
                 }
 
                 fun dinner(): Boolean {
@@ -50,12 +50,12 @@ internal class LookupsKtTest {
             class Antoshka {
 
                 @Kopat
-                fun potato(): Boolean {
+                fun potato(): () -> Boolean {
                     val zadavali = false
-                    return getProhodili()
-                        .filter (withExpression1({ it && zadavali }, { And(LambdaArgument(0),Val("zadavali", zadavali)) }))
-                        .sortedBy @Kotlinq(true) { it.id }
-                        .any((withExpression1({ listOf(it) }, { Call(Identifier("listOf"),LambdaArgument(0)) })))
+                    return { getProhodili()
+                        .filter (withExpression1({ z -> z && zadavali }, { And(LambdaArgument(0),Val("zadavali", zadavali)) }))
+                        .sortedBy @Kotlinq(true) { s -> s.id }
+                        .any((withExpression1({ listOf(it) }, { Call(Identifier("listOf"),LambdaArgument(0)) }))) }
                 }
 
                 fun dinner(): Boolean {

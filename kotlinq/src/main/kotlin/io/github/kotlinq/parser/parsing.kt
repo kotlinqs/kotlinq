@@ -36,7 +36,7 @@ fun processFileContent(fileContent: String, options: Options = Options()): Strin
     if (lambdas.isEmpty()) return null
     val nodeConverter = NodeConverter()
     return replaceAll(fileContentWithoutStubs, lambdas) { original, node, tailLambda ->
-        var argumentsCount = node.all("lambdaParameter").size
+        var argumentsCount = node.all("& > lambdaParameters > lambdaParameter").size
         val parsed = nodeConverter.convert(node, options)
         walk(parsed) {
             if (it is LambdaArgument) {
